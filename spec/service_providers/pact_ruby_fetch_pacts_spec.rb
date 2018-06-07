@@ -1,5 +1,14 @@
-require_relative 'pact_helper'
+require 'pact/consumer/rspec'
 require 'pact/pact_broker/fetch_pacts'
+
+Pact.service_consumer "Pact Ruby" do
+  has_pact_with "Pact Broker" do
+    mock_service :pact_broker do
+      port 1234
+      pact_specification_version "2.0.0"
+    end
+  end
+end
 
 describe Pact::PactBroker::FetchPacts, pact: true do
 
